@@ -1,1 +1,1 @@
-javascript:(function()%7B!function()%7Blet%20e%3Ddocument.getElementsByTagName(%22a%22)%3Bfor(let%20t%3D0%3Bt%3Ce.length%3Bt%2B%2B)e%5Bt%5D.innerText%3De%5Bt%5D.href%7D()%3B%7D)()
+javascript:(function()%7B!function()%7Bconst%20t%3Ddocument.getElementsByTagName(%22a%22)%3Bfor(let%20e%20of%20t)void%200%3D%3D%3De.dataset.originalAnchorText%3F(e.dataset.originalAnchorText%3De.textContent%2Ce.textContent%3De.href)%3A(e.textContent%3De.dataset.originalAnchorText%2Cdelete%20e.dataset.originalAnchorText)%7D()%3B%7D)()
