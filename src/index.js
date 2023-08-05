@@ -8,20 +8,42 @@
 
 javascript: (function () {
   const links = document.getElementsByTagName('a');
+  const currentDomain = window.location.hostname;
 
   for (let link of links) {
-    // Checking for our custom "originalAnchorText" property under `dataset` property
-    // If nothing is there, we either didn't run the bookmarklet or anchor texts
-    // were restored to their original value. In this case, we will store the
-    // original anchor texts under `dataset.originalAnchorText` so that we can restore
-    // it later. Only after we have the backup, we update the `textContent` prop.
-    if (link.dataset.originalAnchorText === undefined) {
-      link.dataset.originalAnchorText = link.textContent;
-      link.textContent = link.href;
-    } else {
-      // If we already stored something, let's restore it & clear the backup
-      link.textContent = link.dataset.originalAnchorText;
-      delete link.dataset.originalAnchorText;
+    try {
+      // Using built-in `URL` object to create a parse-able URL string from
+      // which we can extract comp such as hostname, pathname, protocol etc.
+
+      // `new URL(link.href)` creates a new `URL` object (built-in object)
+      // from the URL string in `link.href`. This object breaks down the URL
+      // into its components such as protocol, hostname, pathname, etc.
+      // which can be accessed (parsed) using their respective properties.
+      const urlObject = new URL(link.href);
+      const linkDomain = urlObject.hostname;
+      const linkPath = urlObject.pathname;
+
+      // Checking for our custom "originalAnchorText" property under `dataset` property
+      // If nothing is there, we either didn't run the bookmarklet or anchor texts
+      // were restored to their original value. In this case, we will store the
+      // original anchor texts under `dataset.originalAnchorText` so that we can restore
+      // it later. Only after we have the backup, we update the `textContent` prop.
+      if (link.dataset.originalAnchorText === undefined) {
+        link.dataset.originalAnchorText = link.textContent;
+        link.textContent = link.href;
+
+        // And set border color depending on whether the link is internal or external
+        currentDomain === linkDomain
+          ? (link.style.border = '2px dashed blue')
+          : (link.style.border = '2px dashed red');
+      } else {
+        // If we already stored something, let's restore it & clear the backup
+        link.textContent = link.dataset.originalAnchorText;
+        delete link.dataset.originalAnchorText;
+        link.style.border = '';
+      }
+    } catch (error) {
+      console.error(error);
     }
   }
 })();
