@@ -31,7 +31,8 @@ javascript: (function () {
       if (link.dataset.originalAnchorText === undefined) {
         link.dataset.originalAnchorText = link.textContent;
         link.style.fontWeight = 'bold';
-        link.style.fontSize = '15px';
+        link.style.fontSize = '16px';
+        link.style.minWidth = '150px';
 
         if (currentDomain === linkDomain) {
           linkPath === '/'
@@ -52,6 +53,7 @@ javascript: (function () {
         link.style.border = '';
         link.style.color = '';
         link.style.fontSize = '';
+        link.style.minWidth = '';
       }
     } catch (error) {
       console.error(error);
