@@ -1,0 +1,1 @@
+javascript:(function()%7B!function()%7Blet%20e%3Ddocument.getElementsByTagName(%22a%22)%3Bfor(let%20t%3D0%3Bt%3Ce.length%3Bt%2B%2B)e%5Bt%5D.innerText%3De%5Bt%5D.href%7D()%3B%7D)()
