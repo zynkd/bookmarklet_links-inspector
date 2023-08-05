@@ -30,20 +30,28 @@ javascript: (function () {
       // it later. Only after we have the backup, we update the `textContent` prop.
       if (link.dataset.originalAnchorText === undefined) {
         link.dataset.originalAnchorText = link.textContent;
+        link.style.fontWeight = 'bold';
+        link.style.fontSize = '15px';
 
-        currentDomain === linkDomain
-          ? (link.textContent = linkPath)
-          : (link.textContent = link.href);
-
-        // And set border color depending on whether the link is internal or external
-        currentDomain === linkDomain
-          ? (link.style.border = '2px dashed blue')
-          : (link.style.border = '2px dashed red');
+        if (currentDomain === linkDomain) {
+          linkPath === '/'
+            ? (link.textContent = 'HOMEPAGE')
+            : (link.textContent = linkPath);
+          link.style.border = '2px dotted #00b4f5';
+          link.style.color = '#00b4f5';
+        } else {
+          link.textContent = link.href;
+          link.style.border = '2px dotted hotpink';
+          link.style.color = 'hotpink';
+        }
       } else {
         // If we already stored something, let's restore it & clear the backup
         link.textContent = link.dataset.originalAnchorText;
         delete link.dataset.originalAnchorText;
+        link.style.fontWeight = 'normal';
         link.style.border = '';
+        link.style.color = '';
+        link.style.fontSize = '';
       }
     } catch (error) {
       console.error(error);
