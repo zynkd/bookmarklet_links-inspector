@@ -30,7 +30,10 @@ javascript: (function () {
       // it later. Only after we have the backup, we update the `textContent` prop.
       if (link.dataset.originalAnchorText === undefined) {
         link.dataset.originalAnchorText = link.textContent;
-        link.textContent = link.href;
+
+        currentDomain === linkDomain
+          ? (link.textContent = linkPath)
+          : (link.textContent = link.href);
 
         // And set border color depending on whether the link is internal or external
         currentDomain === linkDomain
